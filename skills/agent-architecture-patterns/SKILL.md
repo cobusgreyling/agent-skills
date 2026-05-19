@@ -6,6 +6,11 @@ description: >-
   mentions ReAct, Reflexion, Plan-and-Execute, Router, Supervisor, Hierarchical,
   multi-agent, tool-use loop, agent graph, LangGraph, AutoGen, CrewAI, or asks
   "which agent pattern should I use" / "how should this agent be structured".
+tags:
+  - architecture
+  - patterns
+  - multi-agent
+  - design
 ---
 
 # Agent Architecture Patterns
@@ -78,6 +83,10 @@ Whatever pattern is chosen, demand:
 - A **regression check** before any prompt or graph change ships.
 
 No eval harness, no architecture decision. Block the conversation on it.
+
+## Why this exists
+
+The framework debate (LangGraph vs. AutoGen vs. CrewAI vs. Swarm) dominates the conversation; the pattern debate, which actually predicts success, barely happens. Naming the decision shape first — and only then picking the framework that implements it — flips the order. See [link to article on agent architecture patterns].
 
 ## References
 
