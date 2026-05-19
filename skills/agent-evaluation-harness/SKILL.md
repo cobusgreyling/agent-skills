@@ -83,3 +83,11 @@ Most agent failures in production trace back to a prompt change that nobody coul
 - `references/scoring.md` — deterministic vs rubric vs LLM-as-judge, with examples.
 - `references/golden-sets.md` — how to curate and grow an input set without overfitting.
 - `references/ci.md` — wiring the harness into CI and PR gates.
+
+## Related skills
+
+- Traces are the eval substrate — [[agent-observability]].
+- Pattern changes invalidate the eval — [[agent-architecture-patterns]].
+- Tool schema regressions surface here first — [[tool-use-schema-design]].
+- Adversarial set lives next to the golden set — [[guardrails-and-safety]].
+- Eval catches cost regressions, not just quality — [[agent-cost-modeling]].

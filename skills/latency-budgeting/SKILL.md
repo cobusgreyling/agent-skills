@@ -92,3 +92,11 @@ Latency complaints in production almost always trace back to architectural decis
 - `references/streaming.md` — UX patterns for streaming, partial outputs, mid-stream tool calls.
 - `references/model-routing.md` — model-tier selection per step.
 - `references/parallel-tools.md` — how to express parallel tool calls in major frameworks.
+
+## Related skills
+
+- Latency and cost share levers — [[agent-cost-modeling]].
+- Architecture sets the latency floor — [[agent-architecture-patterns]].
+- Caching cuts TTFT and cost together — [[prompt-caching]].
+- Per-stage latency is read from traces — [[agent-observability]].
+- Retrieval latency is its own budget line — [[rag-vs-context-engineering]].

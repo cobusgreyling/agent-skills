@@ -80,3 +80,11 @@ Most "RAG isn't working" complaints in the wild are misdiagnosed retrieval probl
 - `references/retrieval-patterns.md` — when each pattern wins, with worked examples.
 - `references/retrieval-evals.md` — recall@k, MRR, and how to build a labelled set without months of work.
 - `references/chunking.md` — structural chunking, overlap, and metadata.
+
+## Related skills
+
+- Token cost of long context — [[agent-cost-modeling]].
+- Retrieval latency budget — [[latency-budgeting]].
+- Retrieval pattern is an architectural decision — [[agent-architecture-patterns]].
+- Tool-based retrieval ↔ tool schema — [[tool-use-schema-design]].
+- Retrieved-doc injection — [[guardrails-and-safety]].

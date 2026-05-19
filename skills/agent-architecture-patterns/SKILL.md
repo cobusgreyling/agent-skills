@@ -93,3 +93,11 @@ The framework debate (LangGraph vs. AutoGen vs. CrewAI vs. Swarm) dominates the 
 - `references/patterns.md` — full per-pattern brief (when to use, failure modes, control-flow sketch).
 - `references/frameworks.md` — mapping patterns to LangGraph, AutoGen, CrewAI, OpenAI Swarm.
 - `references/observability.md` — what to log, span shape, eval scaffolding.
+
+## Related skills
+
+- Once a pattern is chosen, model its unit economics — [[agent-cost-modeling]].
+- Budget per-stage latency before wiring it up — [[latency-budgeting]].
+- Tools are part of the architecture — [[tool-use-schema-design]].
+- Stand up the eval before shipping — [[agent-evaluation-harness]].
+- Instrument the loop from day one — [[agent-observability]].

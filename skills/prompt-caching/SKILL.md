@@ -88,3 +88,10 @@ Caching is the single biggest lever on production cost for any agent with a non-
 - `references/openai-caching.md` — what auto-caches, what doesn't, how to read `cached_tokens`.
 - `references/gemini-caching.md` — implicit vs explicit cache, when to use which.
 - `references/cost-math.md` — when caching breaks even.
+
+## Related skills
+
+- Caching is the first cost lever — [[agent-cost-modeling]].
+- Cache hits cut TTFT, not just cost — [[latency-budgeting]].
+- Prefix layout depends on architecture — [[agent-architecture-patterns]].
+- Tool definitions cache (or quietly don't) — [[tool-use-schema-design]].

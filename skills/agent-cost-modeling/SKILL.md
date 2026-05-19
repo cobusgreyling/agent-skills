@@ -96,3 +96,11 @@ Cost surprises in production agents are almost always architectural, not pricing
 - `references/cost-equation.md` — the six terms worked through with examples.
 - `references/pattern-cost-table.md` — per-pattern token overhead with sketches.
 - `references/cost-dashboards.md` — what to put on the per-release cost dashboard.
+
+## Related skills
+
+- Cost falls out of architecture — start with [[agent-architecture-patterns]] if you have not.
+- Caching is the first lever — [[prompt-caching]].
+- Latency and cost trade against each other — [[latency-budgeting]].
+- Measure tokens per stage from traces — [[agent-observability]].
+- Cheapest model that passes the eval wins — [[agent-evaluation-harness]].

@@ -91,3 +91,11 @@ In production triage of agent failures, "the model called the tool wrong" is alm
 - `references/parameter-patterns.md` — enums, IDs, dates, pagination, idempotency keys.
 - `references/error-shapes.md` — typed error codes the model can recover from.
 - `references/mcp-notes.md` — MCP-specific schema conventions and gotchas.
+
+## Related skills
+
+- Tools are part of the architecture — [[agent-architecture-patterns]].
+- Schema regressions surface in the eval first — [[agent-evaluation-harness]].
+- Tool-arg injection is a guardrail concern — [[guardrails-and-safety]].
+- Tool definitions cache (or quietly don't) — [[prompt-caching]].
+- Tool call shape is what you see in traces — [[agent-observability]].

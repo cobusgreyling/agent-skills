@@ -91,3 +91,10 @@ Most agent safety incidents in the wild are not novel attacks — they are the s
 - `references/prompt-injection.md` — vectors, framing patterns, test cases.
 - `references/red-team-set.md` — how to build and maintain an adversarial set.
 - `references/output-validation.md` — schema, PII, content moderation pipelines.
+
+## Related skills
+
+- Output validation depends on typed tool schemas — [[tool-use-schema-design]].
+- Adversarial set runs through the eval harness — [[agent-evaluation-harness]].
+- Safety incidents are diagnosed from traces — [[agent-observability]].
+- Retrieved-doc injection is a retrieval problem — [[rag-vs-context-engineering]].

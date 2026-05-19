@@ -95,3 +95,11 @@ Most production-agent incidents are diagnosed by reading a trace, not by reading
 - `references/span-shape.md` — span naming, attributes, error model.
 - `references/otel-genai.md` — OpenTelemetry GenAI semantic conventions, current state.
 - `references/eval-from-traces.md` — sampling real traces into an offline eval pipeline.
+
+## Related skills
+
+- Eval pipelines feed off traces — [[agent-evaluation-harness]].
+- Cost dashboards live next to traces — [[agent-cost-modeling]].
+- Latency root-causing reads traces — [[latency-budgeting]].
+- Guardrail audits read traces — [[guardrails-and-safety]].
+- Trace shape is set by architecture — [[agent-architecture-patterns]].
