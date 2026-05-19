@@ -1,5 +1,7 @@
 # Agent Skills
 
+![Skills cross-link graph](assets/header.png)
+
 A curated collection of [Agent Skills](https://agentskills.io/home) — Markdown-based instructions that give AI coding agents (Claude Code, Gemini CLI, Cursor, Codex, etc.) durable domain expertise instead of one-shot prompting.
 
 Opinionated, written from production triage of real agent failures. Each skill is a short, declarative brief: when to use it, the decision flow, the anti-patterns, the hard line that gates merge.
