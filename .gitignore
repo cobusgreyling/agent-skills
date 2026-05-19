@@ -5,3 +5,10 @@ node_modules/
 *.log
 .vscode/
 .idea/
+
+# convert.py and transcript_regression.py write under out/
+out/
+
+# Python
+__pycache__/
+*.pyc
