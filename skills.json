@@ -89,6 +89,26 @@
       }
     },
     {
+      "name": "context-window-hygiene",
+      "path": "skills/context-window-hygiene",
+      "description": "Manage what enters and stays in the context window — pruning, compaction, summary fidelity, ordering — so the agent stays coherent on long runs without inflating cost. Use when the user is hitting context limits, running long agentic loops, paying for full-history replays, or asks \"how do I keep context manageable?\" / \"the agent forgets things after N turns\".",
+      "tags": [
+        "context-engineering",
+        "cost",
+        "latency",
+        "architecture"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
       "name": "guardrails-and-safety",
       "path": "skills/guardrails-and-safety",
       "description": "Design guardrails for an LLM agent that handles user input, calls real tools, or operates in a regulated domain. Use when the user is building a user-facing agent and mentions guardrails, jailbreaks, prompt injection, content moderation, PII redaction, output validation, red-teaming, safety filters, or asks \"how do I keep this agent from doing X?\" / \"how do I make this production-safe?\".",
@@ -109,6 +129,26 @@
       }
     },
     {
+      "name": "human-in-the-loop",
+      "path": "skills/human-in-the-loop",
+      "description": "Design where, when, and how a human gates, reviews, or rescues an LLM agent — without turning the agent into a button labelled \"approve\". Use when the user is building an agent that takes irreversible actions or operates in regulated workflows and mentions human-in-the-loop, HITL, approval gate, escalation, review queue, oversight, or asks \"when should a human approve this?\" / \"how do I add review without killing the agent's speed?\".",
+      "tags": [
+        "safety",
+        "oversight",
+        "production",
+        "workflow"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
       "name": "latency-budgeting",
       "path": "skills/latency-budgeting",
       "description": "Budget and engineer latency for an LLM agent — TTFT, tokens-per-second, tool round-trips, parallelism, streaming. Use when the user is building a user-facing or real-time agent and mentions latency, p50, p95, p99, TTFT, streaming, throughput, time-to-first-token, slow agent, or asks \"why is my agent slow?\" / \"how do I hit a 2-second latency target?\".",
@@ -117,6 +157,86 @@
         "production",
         "performance",
         "user-experience"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "llm-as-judge",
+      "path": "skills/llm-as-judge",
+      "description": "Design and validate LLM-as-judge scoring — pairwise vs pointwise, bias correction, anchor calibration, and the cases where a judge is the wrong tool. Use when the user is building an eval, scoring open-ended outputs, or comparing model versions and mentions LLM-as-judge, model grader, pairwise comparison, position bias, length bias, judge calibration, meta-eval, or asks \"how do I score open-ended responses?\" / \"is my LLM-judge biased?\".",
+      "tags": [
+        "evaluation",
+        "scoring",
+        "quality",
+        "production"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "memory-design",
+      "path": "skills/memory-design",
+      "description": "Design memory for an LLM agent — what to keep, where to keep it, and when memory hurts more than it helps. Use when the user is adding memory to an agent and mentions short-term memory, long-term memory, episodic, semantic, conversation history, summary memory, vector memory, memory store, mem0, Letta, MemGPT, or asks \"should this agent remember?\" / \"why is the agent recalling the wrong thing?\".",
+      "tags": [
+        "memory",
+        "architecture",
+        "context-engineering",
+        "production"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "model-routing",
+      "path": "skills/model-routing",
+      "description": "Pick the right model per call, not per project — route Opus/Sonnet/Haiku, GPT-5/4o/mini, Gemini Pro/Flash by task, and cut cost without losing quality. Use when the user is choosing model tiers, building a router, or debating Opus-only vs mixed-tier deployments and mentions model selection, model router, cascade, fallback, cheap-first, draft-then-verify, or asks \"which model should I use?\" / \"do I need Opus for this?\".",
+      "tags": [
+        "cost",
+        "latency",
+        "architecture",
+        "model-selection"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "multi-agent-orchestration",
+      "path": "skills/multi-agent-orchestration",
+      "description": "Decide when to split work across multiple agents vs one agent with tools, and design the handoffs when you do. Use when the user is sketching a multi-agent system or debugging one, and mentions handoff, delegation, supervisor, swarm, crew, sub-agent, agent-to-agent, A2A, manager-worker, team of agents, or asks \"should I split this into multiple agents?\" / \"why do my agents talk forever and never finish?\".",
+      "tags": [
+        "multi-agent",
+        "orchestration",
+        "architecture",
+        "handoff"
       ],
       "has_examples": true,
       "has_transcript": true,
@@ -150,6 +270,26 @@
       }
     },
     {
+      "name": "prompt-injection-defense",
+      "path": "skills/prompt-injection-defense",
+      "description": "Defend an LLM agent against prompt injection — direct, indirect, tool-result, and document-borne. Use when the user is building an agent that reads untrusted content (web pages, emails, documents, tool outputs) or exposes user-provided text to a downstream agent, and mentions prompt injection, indirect injection, jailbreak via document, tool-result injection, untrusted input, instruction override, or asks \"how do I stop the agent from following injected instructions?\" / \"is RAG safe from injection?\".",
+      "tags": [
+        "security",
+        "injection",
+        "safety",
+        "production"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
       "name": "rag-vs-context-engineering",
       "path": "skills/rag-vs-context-engineering",
       "description": "Decide between RAG, long-context, structured tool retrieval, and prompt-only approaches for grounding an LLM in private or fresh data. Use when the user is designing a knowledge-grounded agent or chatbot and mentions RAG, vector search, embeddings, retrieval, chunking, long context, context window, tool retrieval, hybrid search, rerank, or asks \"do I need RAG?\" / \"should I just use a big context window?\".",
@@ -158,6 +298,46 @@
         "retrieval",
         "context-engineering",
         "architecture"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "structured-output-reliability",
+      "path": "skills/structured-output-reliability",
+      "description": "Get reliable structured output (JSON, typed objects) out of an LLM without regex repair, retry loops, or silent corruption. Use when the user is parsing model output, fighting malformed JSON, comparing JSON mode vs function calling vs structured outputs, or asks \"why does the model keep breaking my schema?\" / \"how do I force valid JSON?\".",
+      "tags": [
+        "structured-output",
+        "reliability",
+        "tool-use",
+        "production"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "tool-failure-handling",
+      "path": "skills/tool-failure-handling",
+      "description": "Design retry, idempotency, timeout, and recovery behaviour for an agent's tool calls — not the schema (that's a separate skill), but the runtime semantics. Use when the user is building or debugging an agent's tool loop and mentions retries, idempotency keys, timeouts, exponential backoff, compensation, partial failure, tool unavailable, 429, 503, flaky tool, or asks \"how should the agent retry?\" / \"the tool failed mid-call, now what?\".",
+      "tags": [
+        "tool-use",
+        "reliability",
+        "production",
+        "error-handling"
       ],
       "has_examples": true,
       "has_transcript": true,

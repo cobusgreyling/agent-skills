@@ -22,7 +22,17 @@ If you want a survey of frameworks, start with an awesome-list. If you want brie
 
 Each skill ships with a `TRANSCRIPT.md` — one realistic prompt, the agent's response without the skill loaded, the agent's response with it loaded, and the diff annotated. Read those before deciding which skills to install.
 
-Two skills ship a reproducible 20-task eval under [`eval/`](./eval/) — [`tool-use-schema-design`](./eval/tool-use-schema-design/) and [`prompt-caching`](./eval/prompt-caching/). Each has methodology, prompts, rubric, anchored examples, runner, scorer, and a results template you can run against your own agent.
+Five skills ship a reproducible 20-task eval under [`eval/`](./eval/):
+
+- [`agent-architecture-patterns`](./eval/agent-architecture-patterns/)
+- [`agent-cost-modeling`](./eval/agent-cost-modeling/)
+- [`guardrails-and-safety`](./eval/guardrails-and-safety/)
+- [`prompt-caching`](./eval/prompt-caching/)
+- [`tool-use-schema-design`](./eval/tool-use-schema-design/)
+
+Each has methodology, prompts, rubric, anchored examples, runner, scorer, and a results template you can run against your own agent.
+
+Browse [`FAILURES.md`](./FAILURES.md) for the failure-pattern → skill index — the production failures each skill exists to catch.
 
 ## Installation
 
@@ -104,6 +114,15 @@ Codex reads `AGENTS.md` at project root. Either include the skill content under 
 <paste body of skills/tool-use-schema-design/SKILL.md>
 ```
 
+### Auto-generated variants
+
+Run the converter to regenerate the Cursor / Codex / Gemini variants from the canonical `SKILL.md` files — keeps them from drifting:
+
+```bash
+python scripts/convert.py --target all
+# writes out/cursor/.cursor/rules/*.mdc, out/codex/AGENTS.md, out/gemini-cli/GEMINI.md
+```
+
 ## Available Skills
 
 <!-- BEGIN: auto-generated skill index -->
@@ -115,14 +134,32 @@ Codex reads `AGENTS.md` at project root. Either include the skill content under 
   _tags:_ `evaluation`, `production`, `regression`, `quality`
 - [**agent-observability**](./skills/agent-observability) — Instrument an LLM agent so failures are diagnosable, traces are replayable, and evals can run against production data. Use when the user is moving an agent past prototype and mentions tracing, spans, OpenTelemetry, LangSmith, Langfuse, Arize, OpenLLMetry, structured logs, GenAI semantic conventions, or asks "how do I debug this agent in production?" / "what should I log?".  
   _tags:_ `observability`, `tracing`, `production`, `opentelemetry`
+- [**context-window-hygiene**](./skills/context-window-hygiene) — Manage what enters and stays in the context window — pruning, compaction, summary fidelity, ordering — so the agent stays coherent on long runs without inflating cost. Use when the user is hitting context limits, running long agentic loops, paying for full-history replays, or asks "how do I keep context manageable?" / "the agent forgets things after N turns".  
+  _tags:_ `context-engineering`, `cost`, `latency`, `architecture`
 - [**guardrails-and-safety**](./skills/guardrails-and-safety) — Design guardrails for an LLM agent that handles user input, calls real tools, or operates in a regulated domain. Use when the user is building a user-facing agent and mentions guardrails, jailbreaks, prompt injection, content moderation, PII redaction, output validation, red-teaming, safety filters, or asks "how do I keep this agent from doing X?" / "how do I make this production-safe?".  
   _tags:_ `safety`, `guardrails`, `red-teaming`, `production`
+- [**human-in-the-loop**](./skills/human-in-the-loop) — Design where, when, and how a human gates, reviews, or rescues an LLM agent — without turning the agent into a button labelled "approve". Use when the user is building an agent that takes irreversible actions or operates in regulated workflows and mentions human-in-the-loop, HITL, approval gate, escalation, review queue, oversight, or asks "when should a human approve this?" / "how do I add review without killing the agent's speed?".  
+  _tags:_ `safety`, `oversight`, `production`, `workflow`
 - [**latency-budgeting**](./skills/latency-budgeting) — Budget and engineer latency for an LLM agent — TTFT, tokens-per-second, tool round-trips, parallelism, streaming. Use when the user is building a user-facing or real-time agent and mentions latency, p50, p95, p99, TTFT, streaming, throughput, time-to-first-token, slow agent, or asks "why is my agent slow?" / "how do I hit a 2-second latency target?".  
   _tags:_ `latency`, `production`, `performance`, `user-experience`
+- [**llm-as-judge**](./skills/llm-as-judge) — Design and validate LLM-as-judge scoring — pairwise vs pointwise, bias correction, anchor calibration, and the cases where a judge is the wrong tool. Use when the user is building an eval, scoring open-ended outputs, or comparing model versions and mentions LLM-as-judge, model grader, pairwise comparison, position bias, length bias, judge calibration, meta-eval, or asks "how do I score open-ended responses?" / "is my LLM-judge biased?".  
+  _tags:_ `evaluation`, `scoring`, `quality`, `production`
+- [**memory-design**](./skills/memory-design) — Design memory for an LLM agent — what to keep, where to keep it, and when memory hurts more than it helps. Use when the user is adding memory to an agent and mentions short-term memory, long-term memory, episodic, semantic, conversation history, summary memory, vector memory, memory store, mem0, Letta, MemGPT, or asks "should this agent remember?" / "why is the agent recalling the wrong thing?".  
+  _tags:_ `memory`, `architecture`, `context-engineering`, `production`
+- [**model-routing**](./skills/model-routing) — Pick the right model per call, not per project — route Opus/Sonnet/Haiku, GPT-5/4o/mini, Gemini Pro/Flash by task, and cut cost without losing quality. Use when the user is choosing model tiers, building a router, or debating Opus-only vs mixed-tier deployments and mentions model selection, model router, cascade, fallback, cheap-first, draft-then-verify, or asks "which model should I use?" / "do I need Opus for this?".  
+  _tags:_ `cost`, `latency`, `architecture`, `model-selection`
+- [**multi-agent-orchestration**](./skills/multi-agent-orchestration) — Decide when to split work across multiple agents vs one agent with tools, and design the handoffs when you do. Use when the user is sketching a multi-agent system or debugging one, and mentions handoff, delegation, supervisor, swarm, crew, sub-agent, agent-to-agent, A2A, manager-worker, team of agents, or asks "should I split this into multiple agents?" / "why do my agents talk forever and never finish?".  
+  _tags:_ `multi-agent`, `orchestration`, `architecture`, `handoff`
 - [**prompt-caching**](./skills/prompt-caching) — Use prompt caching correctly across Anthropic, OpenAI, Bedrock, and Gemini to cut cost and latency on hot paths. Use when the user is building a production LLM app and mentions prompt caching, cache hits, cache key, cache TTL, ephemeral cache, system-prompt caching, or asks "why is my cache hit rate low?" / "should I cache this?".  
   _tags:_ `caching`, `cost`, `latency`, `production`, `claude`
+- [**prompt-injection-defense**](./skills/prompt-injection-defense) — Defend an LLM agent against prompt injection — direct, indirect, tool-result, and document-borne. Use when the user is building an agent that reads untrusted content (web pages, emails, documents, tool outputs) or exposes user-provided text to a downstream agent, and mentions prompt injection, indirect injection, jailbreak via document, tool-result injection, untrusted input, instruction override, or asks "how do I stop the agent from following injected instructions?" / "is RAG safe from injection?".  
+  _tags:_ `security`, `injection`, `safety`, `production`
 - [**rag-vs-context-engineering**](./skills/rag-vs-context-engineering) — Decide between RAG, long-context, structured tool retrieval, and prompt-only approaches for grounding an LLM in private or fresh data. Use when the user is designing a knowledge-grounded agent or chatbot and mentions RAG, vector search, embeddings, retrieval, chunking, long context, context window, tool retrieval, hybrid search, rerank, or asks "do I need RAG?" / "should I just use a big context window?".  
   _tags:_ `rag`, `retrieval`, `context-engineering`, `architecture`
+- [**structured-output-reliability**](./skills/structured-output-reliability) — Get reliable structured output (JSON, typed objects) out of an LLM without regex repair, retry loops, or silent corruption. Use when the user is parsing model output, fighting malformed JSON, comparing JSON mode vs function calling vs structured outputs, or asks "why does the model keep breaking my schema?" / "how do I force valid JSON?".  
+  _tags:_ `structured-output`, `reliability`, `tool-use`, `production`
+- [**tool-failure-handling**](./skills/tool-failure-handling) — Design retry, idempotency, timeout, and recovery behaviour for an agent's tool calls — not the schema (that's a separate skill), but the runtime semantics. Use when the user is building or debugging an agent's tool loop and mentions retries, idempotency keys, timeouts, exponential backoff, compensation, partial failure, tool unavailable, 429, 503, flaky tool, or asks "how should the agent retry?" / "the tool failed mid-call, now what?".  
+  _tags:_ `tool-use`, `reliability`, `production`, `error-handling`
 - [**tool-use-schema-design**](./skills/tool-use-schema-design) — Design tool schemas (function-calling definitions) that LLMs can use reliably. Use when the user is defining tools for Claude, GPT, Gemini, or any function-calling agent and mentions tool definitions, function calling, JSON schema, tool descriptions, parameters, structured outputs, MCP tools, or asks "why is the model calling my tool wrong?" / "how should I design this tool?".  
   _tags:_ `tool-use`, `function-calling`, `mcp`, `architecture`
 <!-- END: auto-generated skill index -->
@@ -134,33 +171,45 @@ Codex reads `AGENTS.md` at project root. Either include the skill content under 
 <!-- BEGIN: auto-generated tag matrix -->
 | Tag | Skills |
 | --- | --- |
-| `architecture` | [agent-architecture-patterns](./skills/agent-architecture-patterns), [agent-cost-modeling](./skills/agent-cost-modeling), [rag-vs-context-engineering](./skills/rag-vs-context-engineering), [tool-use-schema-design](./skills/tool-use-schema-design) |
+| `architecture` | [agent-architecture-patterns](./skills/agent-architecture-patterns), [agent-cost-modeling](./skills/agent-cost-modeling), [context-window-hygiene](./skills/context-window-hygiene), [memory-design](./skills/memory-design), [model-routing](./skills/model-routing), [multi-agent-orchestration](./skills/multi-agent-orchestration), [rag-vs-context-engineering](./skills/rag-vs-context-engineering), [tool-use-schema-design](./skills/tool-use-schema-design) |
 | `caching` | [prompt-caching](./skills/prompt-caching) |
 | `claude` | [prompt-caching](./skills/prompt-caching) |
-| `context-engineering` | [rag-vs-context-engineering](./skills/rag-vs-context-engineering) |
-| `cost` | [agent-cost-modeling](./skills/agent-cost-modeling), [prompt-caching](./skills/prompt-caching) |
+| `context-engineering` | [context-window-hygiene](./skills/context-window-hygiene), [memory-design](./skills/memory-design), [rag-vs-context-engineering](./skills/rag-vs-context-engineering) |
+| `cost` | [agent-cost-modeling](./skills/agent-cost-modeling), [context-window-hygiene](./skills/context-window-hygiene), [model-routing](./skills/model-routing), [prompt-caching](./skills/prompt-caching) |
 | `design` | [agent-architecture-patterns](./skills/agent-architecture-patterns) |
 | `economics` | [agent-cost-modeling](./skills/agent-cost-modeling) |
-| `evaluation` | [agent-evaluation-harness](./skills/agent-evaluation-harness) |
+| `error-handling` | [tool-failure-handling](./skills/tool-failure-handling) |
+| `evaluation` | [agent-evaluation-harness](./skills/agent-evaluation-harness), [llm-as-judge](./skills/llm-as-judge) |
 | `function-calling` | [tool-use-schema-design](./skills/tool-use-schema-design) |
 | `guardrails` | [guardrails-and-safety](./skills/guardrails-and-safety) |
-| `latency` | [latency-budgeting](./skills/latency-budgeting), [prompt-caching](./skills/prompt-caching) |
+| `handoff` | [multi-agent-orchestration](./skills/multi-agent-orchestration) |
+| `injection` | [prompt-injection-defense](./skills/prompt-injection-defense) |
+| `latency` | [context-window-hygiene](./skills/context-window-hygiene), [latency-budgeting](./skills/latency-budgeting), [model-routing](./skills/model-routing), [prompt-caching](./skills/prompt-caching) |
 | `mcp` | [tool-use-schema-design](./skills/tool-use-schema-design) |
-| `multi-agent` | [agent-architecture-patterns](./skills/agent-architecture-patterns) |
+| `memory` | [memory-design](./skills/memory-design) |
+| `model-selection` | [model-routing](./skills/model-routing) |
+| `multi-agent` | [agent-architecture-patterns](./skills/agent-architecture-patterns), [multi-agent-orchestration](./skills/multi-agent-orchestration) |
 | `observability` | [agent-observability](./skills/agent-observability) |
 | `opentelemetry` | [agent-observability](./skills/agent-observability) |
+| `orchestration` | [multi-agent-orchestration](./skills/multi-agent-orchestration) |
+| `oversight` | [human-in-the-loop](./skills/human-in-the-loop) |
 | `patterns` | [agent-architecture-patterns](./skills/agent-architecture-patterns) |
 | `performance` | [latency-budgeting](./skills/latency-budgeting) |
-| `production` | [agent-cost-modeling](./skills/agent-cost-modeling), [agent-evaluation-harness](./skills/agent-evaluation-harness), [agent-observability](./skills/agent-observability), [guardrails-and-safety](./skills/guardrails-and-safety), [latency-budgeting](./skills/latency-budgeting), [prompt-caching](./skills/prompt-caching) |
-| `quality` | [agent-evaluation-harness](./skills/agent-evaluation-harness) |
+| `production` | [agent-cost-modeling](./skills/agent-cost-modeling), [agent-evaluation-harness](./skills/agent-evaluation-harness), [agent-observability](./skills/agent-observability), [guardrails-and-safety](./skills/guardrails-and-safety), [human-in-the-loop](./skills/human-in-the-loop), [latency-budgeting](./skills/latency-budgeting), [llm-as-judge](./skills/llm-as-judge), [memory-design](./skills/memory-design), [prompt-caching](./skills/prompt-caching), [prompt-injection-defense](./skills/prompt-injection-defense), [structured-output-reliability](./skills/structured-output-reliability), [tool-failure-handling](./skills/tool-failure-handling) |
+| `quality` | [agent-evaluation-harness](./skills/agent-evaluation-harness), [llm-as-judge](./skills/llm-as-judge) |
 | `rag` | [rag-vs-context-engineering](./skills/rag-vs-context-engineering) |
 | `red-teaming` | [guardrails-and-safety](./skills/guardrails-and-safety) |
 | `regression` | [agent-evaluation-harness](./skills/agent-evaluation-harness) |
+| `reliability` | [structured-output-reliability](./skills/structured-output-reliability), [tool-failure-handling](./skills/tool-failure-handling) |
 | `retrieval` | [rag-vs-context-engineering](./skills/rag-vs-context-engineering) |
-| `safety` | [guardrails-and-safety](./skills/guardrails-and-safety) |
-| `tool-use` | [tool-use-schema-design](./skills/tool-use-schema-design) |
+| `safety` | [guardrails-and-safety](./skills/guardrails-and-safety), [human-in-the-loop](./skills/human-in-the-loop), [prompt-injection-defense](./skills/prompt-injection-defense) |
+| `scoring` | [llm-as-judge](./skills/llm-as-judge) |
+| `security` | [prompt-injection-defense](./skills/prompt-injection-defense) |
+| `structured-output` | [structured-output-reliability](./skills/structured-output-reliability) |
+| `tool-use` | [structured-output-reliability](./skills/structured-output-reliability), [tool-failure-handling](./skills/tool-failure-handling), [tool-use-schema-design](./skills/tool-use-schema-design) |
 | `tracing` | [agent-observability](./skills/agent-observability) |
 | `user-experience` | [latency-budgeting](./skills/latency-budgeting) |
+| `workflow` | [human-in-the-loop](./skills/human-in-the-loop) |
 <!-- END: auto-generated tag matrix -->
 
 ## Contributing a skill
@@ -169,10 +218,21 @@ Codex reads `AGENTS.md` at project root. Either include the skill content under 
 2. Write a `description:` that names the **products, verbs, and keywords** that should fire the skill. Vague descriptions don't trigger.
 3. Add `tags:` — kebab-case, max 8, drawn from the existing tag matrix where possible.
 4. Add an `EXAMPLES.md` with 2–3 prompt/expected-behaviour pairs that demonstrate the skill firing correctly.
-5. Put long material (CLI tables, deep-dives) under `references/` so the agent loads it on demand.
-6. Run `python scripts/lint_skills.py` and `python scripts/build_index.py` before opening a PR.
+5. Add a `TRANSCRIPT.md` with the without-skill / with-skill side-by-side.
+6. Put long material (CLI tables, deep-dives) under `references/` so the agent loads it on demand.
+7. Run `python scripts/lint_skills.py` and `python scripts/build_index.py` before opening a PR.
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the end-to-end walkthrough.
+See [AUTHORING.md](./AUTHORING.md) for the house style (hard line, anti-patterns, decision flow, eight conventions) and [CONTRIBUTING.md](./CONTRIBUTING.md) for the end-to-end PR walkthrough.
+
+## Tooling
+
+```
+scripts/
+  lint_skills.py            # validates frontmatter and body size for every SKILL.md
+  build_index.py            # regenerates README index, tag matrix, skills.json
+  convert.py                # writes per-agent variants (Cursor MDC, Codex AGENTS.md, Gemini @-refs)
+  transcript_regression.py  # replays each TRANSCRIPT.md against current models; flags drift
+```
 
 ## Layout
 
