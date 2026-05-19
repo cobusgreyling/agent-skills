@@ -4,34 +4,103 @@ A curated collection of [Agent Skills](https://agentskills.io/home) — Markdown
 
 Opinionated, written from production triage of real agent failures. Each skill is a short, declarative brief: when to use it, the decision flow, the anti-patterns, the hard line that gates merge.
 
+## What makes this different
+
+Most "awesome agent" lists catalogue frameworks and papers. These skills change agent **behaviour** on the same prompt.
+
+- **From production triage.** Every brief encodes a failure pattern seen — or shipped — at least three times.
+- **Each skill has a hard line.** One sentence that gates merge, deploy, or approval. Not advice; a rule.
+- **Anti-patterns are named, not hinted at.** The skill watches for them on every prompt that fires it.
+- **Decision flows are numbered and top-down.** The agent walks the checklist before recommending anything.
+- **Cross-linked.** Skills point at the next decision along the path (architecture → cost → latency → eval → observability → guardrails).
+
+If you want a survey of frameworks, start with an awesome-list. If you want briefs that change what the agent says on the same prompt, start here.
+
+## Proof, not just briefs
+
+Each skill ships with a `TRANSCRIPT.md` — one realistic prompt, the agent's response without the skill loaded, the agent's response with it loaded, and the diff annotated. Read those before deciding which skills to install.
+
+One skill (`tool-use-schema-design`) also has a reproducible 20-task eval under [`eval/`](./eval/tool-use-schema-design/) — methodology, prompts, rubric, and a results template you can run against your own agent.
+
 ## Installation
 
-### Option A — installer (recommended)
+The `SKILL.md` format is **Claude Code-native** (matches the published Agent Skills format). For other agents, the **content is portable** — only the loading mechanism differs.
 
-```bash
-npx skills add cobusgreyling/agent-skills
-```
+| Agent | Native skill support | How to install |
+|-------|----------------------|----------------|
+| Claude Code | Yes (Agent Skills) | Symlink into `~/.claude/skills/` |
+| Gemini CLI | No — load as context | `@`-reference each `SKILL.md` from `GEMINI.md` |
+| Cursor | No — convert to Rule | Copy `SKILL.md` into `.cursor/rules/<name>.mdc`, add `alwaysApply: false` |
+| Codex | No — load via system prompt | Include `SKILL.md` content under a heading in `AGENTS.md` |
 
-The installer detects your agent and symlinks the selected skills into the right place (e.g. `~/.claude/skills/` for Claude Code).
-
-> The `skills` CLI is a third-party installer; see its repo for status. If it does not work for your setup, use the manual path below.
-
-### Option B — manual symlink
-
-Clone the repo, then symlink the skill(s) you want into your agent's skills directory:
+### Claude Code (native)
 
 ```bash
 git clone https://github.com/cobusgreyling/agent-skills.git
 cd agent-skills
 
-# Claude Code
 mkdir -p ~/.claude/skills
-ln -sf "$PWD/skills/agent-architecture-patterns" ~/.claude/skills/
-
-# Gemini CLI, Cursor, Codex: symlink into the equivalent directory for your agent.
+for s in skills/*/; do
+  ln -sf "$PWD/$s" ~/.claude/skills/
+done
 ```
 
-Restart your agent. The skill should appear in the available-skills list and fire on matching prompts.
+Restart Claude Code. Skills appear in the available-skills list and fire on matching prompts.
+
+Selective install: symlink only the skills you want — `ln -sf "$PWD/skills/agent-architecture-patterns" ~/.claude/skills/`.
+
+Installer alternative (third-party, may not cover every agent — fall back to the manual path if it fails):
+
+```bash
+npx skills add cobusgreyling/agent-skills
+```
+
+### Gemini CLI
+
+Reference the skill content from your project's `GEMINI.md`:
+
+```markdown
+# Project context
+
+@./agent-skills/skills/agent-architecture-patterns/SKILL.md
+@./agent-skills/skills/tool-use-schema-design/SKILL.md
+```
+
+Gemini loads the referenced files into context. Treat the SKILL.md as a directive, not a document — the body is written as instructions for the agent.
+
+### Cursor
+
+Cursor uses MDC Rules, not Agent Skills. Convert per-skill:
+
+```bash
+mkdir -p .cursor/rules
+cp skills/agent-architecture-patterns/SKILL.md \
+   .cursor/rules/agent-architecture-patterns.mdc
+```
+
+Then edit the frontmatter to match Cursor's Rule format:
+
+```yaml
+---
+description: <copy from SKILL.md description>
+globs: ["**/*"]
+alwaysApply: false
+---
+```
+
+The body works as-is.
+
+### Codex
+
+Codex reads `AGENTS.md` at project root. Either include the skill content under a heading, or `@`-include the file if your Codex version supports it:
+
+```markdown
+# Agent rules
+
+## Tool-use schema design
+
+<paste body of skills/tool-use-schema-design/SKILL.md>
+```
 
 ## Available Skills
 
