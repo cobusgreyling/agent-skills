@@ -20,7 +20,7 @@ If you want a survey of frameworks, start with an awesome-list. If you want brie
 
 Each skill ships with a `TRANSCRIPT.md` — one realistic prompt, the agent's response without the skill loaded, the agent's response with it loaded, and the diff annotated. Read those before deciding which skills to install.
 
-One skill (`tool-use-schema-design`) also has a reproducible 20-task eval under [`eval/`](./eval/tool-use-schema-design/) — methodology, prompts, rubric, and a results template you can run against your own agent.
+Two skills ship a reproducible 20-task eval under [`eval/`](./eval/) — [`tool-use-schema-design`](./eval/tool-use-schema-design/) and [`prompt-caching`](./eval/prompt-caching/). Each has methodology, prompts, rubric, anchored examples, runner, scorer, and a results template you can run against your own agent.
 
 ## Installation
 
