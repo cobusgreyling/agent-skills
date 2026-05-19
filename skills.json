@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "repo": "cobusgreyling/agent-skills",
+  "generated_by": "scripts/build_index.py",
+  "agent_compat_legend": {
+    "native": "Loads as-is in the agent's native skill mechanism.",
+    "loadable": "Content is portable; include via the agent's context-reference mechanism.",
+    "convertible": "Content is portable; requires a per-agent format conversion (e.g. Cursor MDC)."
+  },
+  "skills": [
+    {
+      "name": "agent-architecture-patterns",
+      "path": "skills/agent-architecture-patterns",
+      "description": "Choose the right architecture for an LLM agent or multi-agent system. Use when the user is designing, comparing, or debugging agentic workflows and mentions ReAct, Reflexion, Plan-and-Execute, Router, Supervisor, Hierarchical, multi-agent, tool-use loop, agent graph, LangGraph, AutoGen, CrewAI, or asks \"which agent pattern should I use\" / \"how should this agent be structured\".",
+      "tags": [
+        "architecture",
+        "patterns",
+        "multi-agent",
+        "design"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": true,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "agent-cost-modeling",
+      "path": "skills/agent-cost-modeling",
+      "description": "Model the cost of an LLM agent before it ships, and after. Use when the user is planning a deployment, comparing patterns, choosing a model tier, or justifying a budget and mentions tokens per task, cost per task, unit economics, cost ceiling, cache hit rate, ReAct cost, multi-agent cost, or asks \"how much will this cost?\" / \"is this economical at scale?\".",
+      "tags": [
+        "cost",
+        "production",
+        "architecture",
+        "economics"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "agent-evaluation-harness",
+      "path": "skills/agent-evaluation-harness",
+      "description": "Design an evaluation harness for an LLM agent before shipping it. Use when the user is building or rewriting an agent, deciding ship/no-ship, debugging regressions, or mentions golden sets, eval suites, regression tests, trace-level evals, LLM-as-judge, scoring rubrics, or asks \"how do I test this agent?\" / \"how do I know if my agent got better?\".",
+      "tags": [
+        "evaluation",
+        "production",
+        "regression",
+        "quality"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "agent-observability",
+      "path": "skills/agent-observability",
+      "description": "Instrument an LLM agent so failures are diagnosable, traces are replayable, and evals can run against production data. Use when the user is moving an agent past prototype and mentions tracing, spans, OpenTelemetry, LangSmith, Langfuse, Arize, OpenLLMetry, structured logs, GenAI semantic conventions, or asks \"how do I debug this agent in production?\" / \"what should I log?\".",
+      "tags": [
+        "observability",
+        "tracing",
+        "production",
+        "opentelemetry"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "guardrails-and-safety",
+      "path": "skills/guardrails-and-safety",
+      "description": "Design guardrails for an LLM agent that handles user input, calls real tools, or operates in a regulated domain. Use when the user is building a user-facing agent and mentions guardrails, jailbreaks, prompt injection, content moderation, PII redaction, output validation, red-teaming, safety filters, or asks \"how do I keep this agent from doing X?\" / \"how do I make this production-safe?\".",
+      "tags": [
+        "safety",
+        "guardrails",
+        "red-teaming",
+        "production"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "latency-budgeting",
+      "path": "skills/latency-budgeting",
+      "description": "Budget and engineer latency for an LLM agent — TTFT, tokens-per-second, tool round-trips, parallelism, streaming. Use when the user is building a user-facing or real-time agent and mentions latency, p50, p95, p99, TTFT, streaming, throughput, time-to-first-token, slow agent, or asks \"why is my agent slow?\" / \"how do I hit a 2-second latency target?\".",
+      "tags": [
+        "latency",
+        "production",
+        "performance",
+        "user-experience"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "prompt-caching",
+      "path": "skills/prompt-caching",
+      "description": "Use prompt caching correctly across Anthropic, OpenAI, Bedrock, and Gemini to cut cost and latency on hot paths. Use when the user is building a production LLM app and mentions prompt caching, cache hits, cache key, cache TTL, ephemeral cache, system-prompt caching, or asks \"why is my cache hit rate low?\" / \"should I cache this?\".",
+      "tags": [
+        "caching",
+        "cost",
+        "latency",
+        "production",
+        "claude"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "rag-vs-context-engineering",
+      "path": "skills/rag-vs-context-engineering",
+      "description": "Decide between RAG, long-context, structured tool retrieval, and prompt-only approaches for grounding an LLM in private or fresh data. Use when the user is designing a knowledge-grounded agent or chatbot and mentions RAG, vector search, embeddings, retrieval, chunking, long context, context window, tool retrieval, hybrid search, rerank, or asks \"do I need RAG?\" / \"should I just use a big context window?\".",
+      "tags": [
+        "rag",
+        "retrieval",
+        "context-engineering",
+        "architecture"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    },
+    {
+      "name": "tool-use-schema-design",
+      "path": "skills/tool-use-schema-design",
+      "description": "Design tool schemas (function-calling definitions) that LLMs can use reliably. Use when the user is defining tools for Claude, GPT, Gemini, or any function-calling agent and mentions tool definitions, function calling, JSON schema, tool descriptions, parameters, structured outputs, MCP tools, or asks \"why is the model calling my tool wrong?\" / \"how should I design this tool?\".",
+      "tags": [
+        "tool-use",
+        "function-calling",
+        "mcp",
+        "architecture"
+      ],
+      "has_examples": true,
+      "has_transcript": true,
+      "has_references": false,
+      "agent_compat": {
+        "claude-code": "native",
+        "gemini-cli": "loadable",
+        "cursor": "convertible",
+        "codex": "loadable"
+      }
+    }
+  ]
+}

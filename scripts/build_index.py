@@ -12,6 +12,7 @@ Run before committing; CI fails if the section is stale.
 """
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -21,6 +22,16 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = ROOT / "skills"
 README = ROOT / "README.md"
+MANIFEST = ROOT / "skills.json"
+
+REPO_SLUG = "cobusgreyling/agent-skills"
+
+AGENT_COMPAT = {
+    "claude-code": "native",
+    "gemini-cli": "loadable",
+    "cursor": "convertible",
+    "codex": "loadable",
+}
 
 BEGIN = "<!-- BEGIN: auto-generated skill index -->"
 END = "<!-- END: auto-generated skill index -->"
@@ -86,6 +97,36 @@ def build_tag_matrix() -> str:
     return "\n".join(lines)
 
 
+def build_manifest() -> dict:
+    skill_dirs = sorted(p for p in SKILLS_DIR.iterdir() if p.is_dir())
+    skills = []
+    for d in skill_dirs:
+        front = load_frontmatter(d / "SKILL.md")
+        skills.append(
+            {
+                "name": d.name,
+                "path": f"skills/{d.name}",
+                "description": " ".join(str(front.get("description", "")).split()),
+                "tags": [t for t in (front.get("tags") or []) if isinstance(t, str)],
+                "has_examples": (d / "EXAMPLES.md").exists(),
+                "has_transcript": (d / "TRANSCRIPT.md").exists(),
+                "has_references": (d / "references").is_dir(),
+                "agent_compat": AGENT_COMPAT,
+            }
+        )
+    return {
+        "schema_version": 1,
+        "repo": REPO_SLUG,
+        "generated_by": "scripts/build_index.py",
+        "agent_compat_legend": {
+            "native": "Loads as-is in the agent's native skill mechanism.",
+            "loadable": "Content is portable; include via the agent's context-reference mechanism.",
+            "convertible": "Content is portable; requires a per-agent format conversion (e.g. Cursor MDC).",
+        },
+        "skills": skills,
+    }
+
+
 def main() -> int:
     if not README.exists():
         print(f"FAIL: {README} not found", file=sys.stderr)
@@ -118,12 +159,21 @@ def main() -> int:
             flags=re.DOTALL,
         )
 
-    if new_text == text:
+    readme_changed = new_text != text
+    if readme_changed:
+        README.write_text(new_text, encoding="utf-8")
+        print("UPDATED: README.md skill index regenerated")
+    else:
         print("OK: README.md skill index already current")
-        return 0
 
-    README.write_text(new_text, encoding="utf-8")
-    print("UPDATED: README.md skill index regenerated")
+    manifest_json = json.dumps(build_manifest(), indent=2, ensure_ascii=False) + "\n"
+    existing_manifest = MANIFEST.read_text(encoding="utf-8") if MANIFEST.exists() else None
+    if existing_manifest != manifest_json:
+        MANIFEST.write_text(manifest_json, encoding="utf-8")
+        print(f"UPDATED: {MANIFEST.name} regenerated")
+    else:
+        print(f"OK: {MANIFEST.name} already current")
+
     return 0
 
 
