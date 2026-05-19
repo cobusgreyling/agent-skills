@@ -1,0 +1,10 @@
+# Code owners for agent-skills.
+# See https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo.
+*       @cobusgreyling
+
+# Scripts and CI: same owner; explicit so future co-maintainers can be added per area.
+/scripts/         @cobusgreyling
+/.github/         @cobusgreyling
+/skills/          @cobusgreyling

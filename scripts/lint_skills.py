@@ -14,9 +14,11 @@ import yaml
 SKILLS_DIR = Path(__file__).resolve().parent.parent / "skills"
 
 KEBAB_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+TAG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 DESCRIPTION_MAX = 1024
 DESCRIPTION_MIN = 20
 BODY_SOFT_MAX_BYTES = 10_000
+TAGS_MAX = 8
 
 
 def parse_frontmatter(text: str) -> tuple[dict, str] | None:
@@ -80,6 +82,17 @@ def lint_skill(skill_dir: Path) -> list[str]:
             errors.append(
                 f"{skill_dir.name}: `description` is {len(flat)} chars, max {DESCRIPTION_MAX}"
             )
+
+    tags = front.get("tags", [])
+    if tags is not None:
+        if not isinstance(tags, list):
+            errors.append(f"{skill_dir.name}: `tags` must be a list of kebab-case strings")
+        else:
+            if len(tags) > TAGS_MAX:
+                errors.append(f"{skill_dir.name}: too many tags ({len(tags)}, max {TAGS_MAX})")
+            for tag in tags:
+                if not isinstance(tag, str) or not TAG_RE.match(tag):
+                    errors.append(f"{skill_dir.name}: tag `{tag}` must be kebab-case string")
 
     if len(body.encode("utf-8")) > BODY_SOFT_MAX_BYTES:
         errors.append(
